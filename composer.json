@@ -1,0 +1,21 @@
+{
+    "name": "atishoo/paylib",
+    "description": "支付合集库",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "atishoo",
+            "email": "atish00@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.5"
+    },
+    "autoload":{
+      "psr-4":{
+        "Atipay\\":"src"
+      }
+    }
+}
