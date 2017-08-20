@@ -43,8 +43,8 @@ class WxPay
 	 * API证书下载地址：https://pay.weixin.qq.com/index.php/account/api_cert，下载之前需要安装商户操作证书）
 	 * @var path
 	 */
-	const SSLCERT_PATH = '../cert/apiclient_cert.pem';
-	const SSLKEY_PATH = '../cert/apiclient_key.pem';
+	private $_sslcert = '../cert/apiclient_cert.pem';
+	private $_sslkey = '../cert/apiclient_key.pem';
 
 	//=======【curl代理设置】===================================
 	/**
@@ -68,7 +68,12 @@ class WxPay
 
 	public function __construct($config)
 	{
-		$config
+		$this->_appid = array_key_exists('appid', $config)&&!empty($config['appid'])?$config['appid']:'';
+		$this->_mhid = array_key_exists('mhid', $config)&&!empty($config['mhid'])?$config['mhid']:'';
+		$this->_key = array_key_exists('key', $config)&&!empty($config['key'])?$config['key']:'';
+		$this->_secret = array_key_exists('secret', $config)&&!empty($config['secret'])?$config['secret']:'';
+		$this->_sslcert = array_key_exists('sslcert', $config)&&!empty($config['sslcert'])?$config['sslcert']:'';
+		$this->_sslkey = array_key_exists('sslkey', $config)&&!empty($config['sslkey'])?$config['sslkey']:'';
 	}
 	/**
 	 *
@@ -516,11 +521,11 @@ class WxPay
 	private static function reportCostTime($url, $startTimeStamp, $data)
 	{
 		//如果不需要上报数据
-		if(WxPayConfig::REPORT_LEVENL == 0){
+		if(self::REPORT_LEVENL == 0){
 			return;
 		}
 		//如果仅失败上报
-		if(WxPayConfig::REPORT_LEVENL == 1 &&
+		if(self::REPORT_LEVENL == 1 &&
 			 array_key_exists("return_code", $data) &&
 			 $data["return_code"] == "SUCCESS" &&
 			 array_key_exists("result_code", $data) &&
@@ -586,10 +591,10 @@ class WxPay
 		curl_setopt($ch, CURLOPT_TIMEOUT, $second);
 
 		//如果有配置代理这里就设置代理
-		if(WxPayConfig::CURL_PROXY_HOST != "0.0.0.0"
-			&& WxPayConfig::CURL_PROXY_PORT != 0){
-			curl_setopt($ch,CURLOPT_PROXY, WxPayConfig::CURL_PROXY_HOST);
-			curl_setopt($ch,CURLOPT_PROXYPORT, WxPayConfig::CURL_PROXY_PORT);
+		if(self::CURL_PROXY_HOST != "0.0.0.0"
+			&& self::CURL_PROXY_PORT != 0){
+			curl_setopt($ch,CURLOPT_PROXY, self::CURL_PROXY_HOST);
+			curl_setopt($ch,CURLOPT_PROXYPORT, self::CURL_PROXY_PORT);
 		}
 		curl_setopt($ch,CURLOPT_URL, $url);
 		curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,TRUE);
@@ -603,9 +608,9 @@ class WxPay
 			//设置证书
 			//使用证书：cert 与 key 分别属于两个.pem文件
 			curl_setopt($ch,CURLOPT_SSLCERTTYPE,'PEM');
-			curl_setopt($ch,CURLOPT_SSLCERT, WxPayConfig::SSLCERT_PATH);
+			curl_setopt($ch,CURLOPT_SSLCERT, $this->_sslcert);
 			curl_setopt($ch,CURLOPT_SSLKEYTYPE,'PEM');
-			curl_setopt($ch,CURLOPT_SSLKEY, WxPayConfig::SSLKEY_PATH);
+			curl_setopt($ch,CURLOPT_SSLKEY, $this->_sslkey);
 		}
 		//post提交方式
 		curl_setopt($ch, CURLOPT_POST, TRUE);
