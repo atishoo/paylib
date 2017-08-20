@@ -1,6 +1,5 @@
 <?php
 namespace Atipay\wxpay\wxdata;
-use Atipay\wxpay\WxPayConfig;
 /**
 * 2015-06-29 修复签名问题
 **/
@@ -13,7 +12,17 @@ use Atipay\wxpay\WxPayConfig;
  */
 class WxPayDataBase
 {
+	private $_key = ''; // 商户支付密钥，参考开户邮件设置（必须配置，登录商户平台自行设置）;设置地址：https://pay.weixin.qq.com/index.php/account/api_cert
 	protected $values = array();
+
+	public function __construct($key)
+	{
+		if (!empty($key)) {
+			$this->_key = $key;
+		}else{
+			throw new WxPayException("请传入key商户支付密钥"); 
+		}
+	}
 
 	/**
 	* 设置签名，详见签名生成算法
@@ -113,7 +122,7 @@ class WxPayDataBase
 		ksort($this->values);
 		$string = $this->ToUrlParams();
 		//签名步骤二：在string后加入KEY
-		$string = $string . "&key=".WxPayConfig::KEY;
+		$string = $string . "&key=".$this->_key;
 		//签名步骤三：MD5加密
 		$string = md5($string);
 		//签名步骤四：所有字符转为大写
