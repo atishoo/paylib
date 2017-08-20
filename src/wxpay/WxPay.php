@@ -12,7 +12,7 @@ use Atipay\wxpay\wxdata\WxPayException;
  * @author widyhu
  *
  */
-class WxPayApi
+class WxPay
 {
 	/**
 	 *
