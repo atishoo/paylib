@@ -1,5 +1,5 @@
 <?php
-namespace Atipay\wxpay;
+namespace Atipay\wxpay\wxdata;
 
 /**
  *

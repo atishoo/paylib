@@ -1,5 +1,5 @@
 <?php
-namespace Atipay\wxpay;
+namespace Atipay\wxpay\wxdata;
 /**
  *
  * 微信支付API异常类

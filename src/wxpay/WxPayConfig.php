@@ -4,7 +4,7 @@ namespace Atipay\wxpay;
 * 	配置账号信息
 */
 
-class WxPayApi
+class WxPayConfig
 {
 	//=======【基本信息设置】=====================================
 	//

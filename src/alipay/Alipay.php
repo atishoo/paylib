@@ -28,13 +28,13 @@ class Alipaylib{
      */
     public function __construct($config){
         $this->partner = array_key_exists('partner', $config)&&!empty($config['partner'])?$config['partner']:'';
-        $this->private_key = $this->CI->config->item('alipay_private_key');
-        $this->public_key = $this->CI->config->item('alipay_public_key');
-        $this->input_charset = $this->CI->config->item('alipay_input_charset');
-        $this->sign_type = $this->CI->config->item('alipay_sign_type');
-        $this->service = $this->CI->config->item('alipay_service');
-        $this->cacert = $this->CI->config->item('alipay_cacert');
-        $this->transport = $this->CI->config->item('alipay_transport');
+        $this->private_key = array_key_exists('private_key', $config)&&!empty($config['private_key'])?$config['private_key']:'';
+        $this->public_key = array_key_exists('public_key', $config)&&!empty($config['public_key'])?$config['public_key']:'';
+        $this->input_charset = array_key_exists('input_charset', $config)&&!empty($config['input_charset'])?$config['input_charset']:'';
+        $this->sign_type = array_key_exists('sign_type', $config)&&!empty($config['sign_type'])?$config['sign_type']:'';
+        $this->service = array_key_exists('service', $config)&&!empty($config['service'])?$config['service']:'';
+        $this->cacert = array_key_exists('cacert', $config)&&!empty($config['cacert'])?$config['cacert']:'';
+        $this->transport = array_key_exists('transport', $config)&&!empty($config['transport'])?$config['transport']:'';
     }
 
     /**

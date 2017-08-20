@@ -1,6 +1,10 @@
 <?php
 namespace Atipay\wxpay;
 
+use Atipay\wxpay\wxdata\WxPayResults;
+use Atipay\wxpay\wxdata\WxPayReport;
+use Atipay\wxpay\wxdata\WxPayException;
+
 /**
  *
  * 接口访问类，包含所有微信支付API列表的封装，类中方法为static方法，

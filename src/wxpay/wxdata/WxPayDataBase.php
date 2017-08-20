@@ -1,5 +1,6 @@
 <?php
-namespace Atipay\wxpay;
+namespace Atipay\wxpay\wxdata;
+use Atipay\wxpay\WxPayConfig;
 /**
 * 2015-06-29 修复签名问题
 **/
