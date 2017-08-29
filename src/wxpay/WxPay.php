@@ -155,7 +155,8 @@ class WxPay
 
 		$startTimeStamp = self::getMillisecond();//请求开始时间
 		$response = self::postXmlCurl($xml, $url, false, $timeOut);
-		$result = WxPayResults::Init($response);
+		$wxresult = new WxPayResults($this->_key);
+		$result = $wxresult->Init($response);
 		self::reportCostTime($url, $startTimeStamp, $result);//上报请求花费时间
 
 		return $result;
@@ -186,7 +187,8 @@ class WxPay
 
 		$startTimeStamp = self::getMillisecond();//请求开始时间
 		$response = self::postXmlCurl($xml, $url, false, $timeOut);
-		$result = WxPayResults::Init($response);
+		$wxresult = new WxPayResults($this->_key);
+		$result = $wxresult->Init($response);
 		self::reportCostTime($url, $startTimeStamp, $result);//上报请求花费时间
 
 		return $result;
@@ -225,7 +227,8 @@ class WxPay
 		$xml = $inputObj->ToXml();
 		$startTimeStamp = self::getMillisecond();//请求开始时间
 		$response = self::postXmlCurl($xml, $url, true, $timeOut);
-		$result = WxPayResults::Init($response);
+		$wxresult = new WxPayResults($this->_key);
+		$result = $wxresult->Init($response);
 		self::reportCostTime($url, $startTimeStamp, $result);//上报请求花费时间
 
 		return $result;
@@ -262,7 +265,8 @@ class WxPay
 
 		$startTimeStamp = self::getMillisecond();//请求开始时间
 		$response = self::postXmlCurl($xml, $url, false, $timeOut);
-		$result = WxPayResults::Init($response);
+		$wxresult = new WxPayResults($this->_key);
+		$result = $wxresult->Init($response);
 		self::reportCostTime($url, $startTimeStamp, $result);//上报请求花费时间
 
 		return $result;
@@ -330,7 +334,8 @@ class WxPay
 
 		$startTimeStamp = self::getMillisecond();//请求开始时间
 		$response = self::postXmlCurl($xml, $url, false, $timeOut);
-		$result = WxPayResults::Init($response);
+		$wxresult = new WxPayResults($this->_key);
+		$result = $wxresult->Init($response);
 		self::reportCostTime($url, $startTimeStamp, $result);//上报请求花费时间
 
 		return $result;
@@ -361,7 +366,8 @@ class WxPay
 
 		$startTimeStamp = self::getMillisecond();//请求开始时间
 		$response = self::postXmlCurl($xml, $url, true, $timeOut);
-		$result = WxPayResults::Init($response);
+		$wxresult = new WxPayResults($this->_key);
+		$result = $wxresult->Init($response);
 		self::reportCostTime($url, $startTimeStamp, $result);//上报请求花费时间
 
 		return $result;
@@ -458,7 +464,8 @@ class WxPay
 
 		$startTimeStamp = self::getMillisecond();//请求开始时间
 		$response = self::postXmlCurl($xml, $url, false, $timeOut);
-		$result = WxPayResults::Init($response);
+		$wxresult = new WxPayResults($this->_key);
+		$result = $wxresult->Init($response);
 		self::reportCostTime($url, $startTimeStamp, $result);//上报请求花费时间
 
 		return $result;
@@ -472,13 +479,14 @@ class WxPay
  	 * 回调类成员函数方法:notify(array($this, you_function));
  	 * $callback  原型为：function function_name($data){}
  	 */
-	public static function notify($callback, &$msg)
+	public function notify($callback, &$msg)
 	{
 		//获取通知的数据
 		$xml = $GLOBALS['HTTP_RAW_POST_DATA'];
 		//如果返回成功则验证签名
 		try {
-			$result = WxPayResults::Init($xml);
+			$wxresult = new WxPayResults($this->_key);
+			$result = $wxresult->Init($xml);
 		} catch (WxPayException $e){
 			$msg = $e->errorMessage();
 			return false;

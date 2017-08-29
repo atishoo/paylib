@@ -71,13 +71,12 @@ class WxPayResults extends WxPayDataBase
      */
 	public function Init($xml)
 	{
-		$obj = new self($this->_key);
-		$obj->FromXml($xml);
+		$this->FromXml($xml);
 		//fix bug 2015-06-29
-		if($obj->values['return_code'] != 'SUCCESS'){
-			 return $obj->GetValues();
+		if($this->values['return_code'] != 'SUCCESS'){
+			 return $this->GetValues();
 		}
-		$obj->CheckSign();
-        return $obj->GetValues();
+		$this->CheckSign();
+        return $this->GetValues();
 	}
 }
