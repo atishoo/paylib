@@ -527,7 +527,7 @@ class WxPay
 	 * @param int $startTimeStamp
 	 * @param array $data
 	 */
-	private static function reportCostTime($url, $startTimeStamp, $data)
+	private function reportCostTime($url, $startTimeStamp, $data)
 	{
 		//如果不需要上报数据
 		if(self::REPORT_LEVENL == 0){
