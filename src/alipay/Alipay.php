@@ -1,7 +1,7 @@
 <?php
 namespace Atipay\alipay;
 
-class Alipaylib{
+class Alipay{
     /**
      * HTTPS形式消息验证地址
      */
