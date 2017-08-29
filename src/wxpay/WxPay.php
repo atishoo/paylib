@@ -545,7 +545,7 @@ class WxPay
 
 		//上报逻辑
 		$endTimeStamp = self::getMillisecond();
-		$objInput = new WxPayReport();
+		$objInput = new WxPayReport($this->_key);
 		$objInput->SetInterface_url($url);
 		$objInput->SetExecute_time_($endTimeStamp - $startTimeStamp);
 		//返回状态码
